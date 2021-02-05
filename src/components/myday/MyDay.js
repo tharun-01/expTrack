@@ -23,11 +23,13 @@ function MyDay(props) {
     Axios.post("http://localhost:3001/api/delete",{item:item,date:props.currDay});
   };
 
-  const update = (desc, name) => {
-    Axios.put("http://localhost:3001/api/update", {
+  const update = (desc,price, name) => {
+    console.log(desc,price)
+    Axios.post("http://localhost:3001/api/update", {
       desc: desc,
       name: name,
-      currdate:currentDate,
+      price:price,
+      currdate:props.currDay,
     }).then((response) => {
       setMyCards(response.data);
     });
@@ -56,15 +58,14 @@ function MyDay(props) {
         <MyCard
           key={index}
           title={card.name}
+          price={card.price}
           deleteMe={() => {
             deleteItem(card.name);
             setMyCards(myCards.filter((x, y) => y != index));
           }}
-          setDescription={(desc) => {
-            let cards = [...myCards];
-            cards[index].description = desc;
-            setMyCards(cards);
-            update(desc, myCards[index].name);
+          setDescription={(desc,price) => {
+            update(desc, price,myCards[index].name);
+            
           }}
           description={card.quantity}
         />
