@@ -56,7 +56,9 @@ function MyCard(props) {
         }
         title={props.title}
         description={props.description}
+        
       />
+     
       <Modal
         title={props.title}
         visible={isModalVisible}
