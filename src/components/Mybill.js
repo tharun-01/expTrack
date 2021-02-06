@@ -9,7 +9,7 @@ function Mybill(props) {
   const showModal = () => {
     setIsModalVisible(true);
   };
-  const [sum, setsum] = useState(0)
+  const [sum, setsum] = useState(0);
   const handleOk = () => {
     setIsModalVisible(false);
   };
@@ -38,23 +38,24 @@ function Mybill(props) {
   ];
 
   const [myCards, setMyCards] = useState([]);
-  let totol=0
+  let totol = 0;
   useEffect(() => {
+    console.log("use effect called", props.currDay);
     Axios.post("http://localhost:3001/api/bill", { date: props.currDay }).then(
       (response) => {
         setMyCards(response.data);
-        let totol=0
-        myCards.map((value,index)=>{
-            totol+=value.price;
-        })
-        setsum(totol)
-        console.log(sum)
+        let totol = 0;
+        response.data.map((value, index) => {
+          totol += value.price;
+        });
+        setsum(totol);
+        console.log(totol);
         {
         }
       }
     );
   }, [props.currDay]);
-  
+
   return (
     <div>
       <Table columns={columns} dataSource={myCards} />
@@ -67,14 +68,13 @@ function Mybill(props) {
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
-          style={{width:"500px"}}
-        
+          style={{ width: "500px" }}
         >
-            <div >
-
-          <h3>Totol amount spent in this month is</h3>
-          <p>{sum}</p>
-            </div>
+          <div>
+            <h3>Totol amount spent in this day was</h3>
+            <p>{sum}</p>
+            {console.log(sum, "hey")}
+          </div>
         </Modal>
       </div>
     </div>

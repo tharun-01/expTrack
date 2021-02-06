@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Form, Input, Select } from "antd";
 import { Modal, Button } from "antd";
+
 import { FormInstance } from "antd/lib/form";
 const { Meta } = Card;
 
@@ -20,7 +21,9 @@ function MyCard(props) {
   };
 
   const handleOk = () => {
-    props.setDescription(formRef.current.getFieldValue("quantity"));
+    console.log(formRef.current.getFieldValue("quantity"),formRef.current.getFieldValue("price"))
+    props.setDescription(formRef.current.getFieldValue("quantity"),formRef.current.getFieldValue("price"));
+
     setIsModalVisible(false);
   };
   const onFinish = (values) => {
@@ -55,7 +58,7 @@ function MyCard(props) {
           <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
         }
         title={props.title}
-        description={props.description}
+        description={"cost :"+props.price+"~~~~Quantity"+props.description}
         
       />
      
@@ -73,7 +76,15 @@ function MyCard(props) {
           >
             <Input />
           </Form.Item>
+          <Form.Item
+            name="price"
+            label="Price"
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
         </Form>
+        
       </Modal>
     </Card>
   );
