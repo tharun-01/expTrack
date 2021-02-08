@@ -38,6 +38,7 @@ function Mybill(props) {
   ];
 
   const [myCards, setMyCards] = useState([]);
+  const [monthsum, setmonthsum] = useState(0)
   let totol = 0;
   useEffect(() => {
     console.log("use effect called", props.currDay);
@@ -49,19 +50,36 @@ function Mybill(props) {
           totol += value.price;
         });
         setsum(totol);
-        console.log(totol);
+
+        {
+        }
+      }
+    );
+    Axios.post("http://localhost:3001/api/monthbill", { date: props.currDay }).then(
+      (response) => {
+        
+        let totosl = 0;
+        response.data.map((value, index) => {
+          totosl += value.price;
+        });
+        setmonthsum(totosl);
+
         {
         }
       }
     );
   }, [props.currDay]);
 
+
+
+
+
   return (
     <div>
       <Table columns={columns} dataSource={myCards} />
       <div>
         <Button type="primary" onClick={showModal}>
-          Open Modal
+          Today's bill
         </Button>
         <Modal
           title="SURPRISE"
@@ -73,10 +91,13 @@ function Mybill(props) {
           <div>
             <h3>Totol amount spent in this day was</h3>
             <p>{sum}</p>
-            {console.log(sum, "hey")}
+            <h3>Totol amout spent in this month was</h3>
+            <p>{monthsum}</p>
+            {console.log(sum,monthsum, "hey")}
           </div>
         </Modal>
       </div>
+     
     </div>
   );
 }

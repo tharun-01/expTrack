@@ -10,21 +10,32 @@ function MyDay(props) {
     let month = (newDate.getMonth() + 1).toString();
     let year = (newDate.getFullYear()).toString();
     let currentDate=(year+"-"+month+"-"+date)
-
+    
+    const [counter, setcounter] = useState(0)
   useEffect(() => {
+    console.log("use effect called")
     Axios.post("http://localhost:3001/api/get", { date: props.currDay }).then(
       (response) => {
         setMyCards(response.data);
       }
     );
   }, [props.currDay]);
+  useEffect(() => {
+    console.log("use effect called")
+    Axios.post("http://localhost:3001/api/get", { date: props.currDay }).then(
+      (response) => {
+        setMyCards(response.data);
+      }
+    );
+  }, [counter]);
+  
 
   const deleteItem = (item) => {
     Axios.post("http://localhost:3001/api/delete",{item:item,date:props.currDay});
   };
 
   const update = (desc,price, name) => {
-    console.log(desc,price)
+    console.log("update called")
     Axios.post("http://localhost:3001/api/update", {
       desc: desc,
       name: name,
@@ -32,6 +43,7 @@ function MyDay(props) {
       currdate:props.currDay,
     }).then((response) => {
       setMyCards(response.data);
+      setcounter(counter+1);
     });
   };
 
