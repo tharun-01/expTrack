@@ -39,7 +39,7 @@ function App() {
         >
           <Menu.Item key="1">My Day</Menu.Item>
           <Menu.Item key="2">Add Items</Menu.Item>
-          <Menu.Item key="3">Expence</Menu.Item>
+          <Menu.Item key="3">Expense</Menu.Item>
         </Menu>
         <DatePicker defaultValue={moment(currDate, 'YYYY-MM-DD')}  style={{position:"absolute" , right:'10%',bottom:"30%"}} onChange={(date, dateStr) => setDate(dateStr)} />
       </Header>
