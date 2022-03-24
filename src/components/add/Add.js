@@ -37,6 +37,7 @@ function Add(props) {
   
   // const [quantity, setquantity] = useState(0);
   const insertindb = () => {
+    console.log("clicked")
     Axios.post("http://localhost:3001/api/insert", {
       name: name,
       quantity: quantity,
